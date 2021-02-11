@@ -62,16 +62,17 @@ Use the inning function below to do the following:
 NOTE: This will be a callback function for the tasks below
 */
 
-function inning(/*Code Here*/){
-    /*Code Here*/
+function inning(){
+  return Math.floor(Math.random() * Math.floor(3));
 }
+console.log(inning())
 
 
 /* ⚾️⚾️⚾️ Task 3: finalScore() ⚾️⚾️⚾️
 Use the finalScore function below to do the following:
   1. Receive the callback function `inning` that was created in Task 2 
   2. Receive a number of innings to be played
-  3. After each inning, update the score of the home and away teams
+  3. After each inning, update the score of the 
   4. After the last inning, return an object containing the final (total) score of the innings played
   
   For example: invoking finalScore(inning, 9) might return this object:
@@ -81,19 +82,31 @@ Use the finalScore function below to do the following:
 }
 */ 
 
-function finalScore(/*code Here*/){
-  /*Code Here*/
+function finalScore(inning, x){
+  let home = 0;
+  let away = 0;
+ for (h = 0; h < x; h++){
+   home = home + inning();
+   away = away + inning();
+ }
+ var score = {"Home": home, "Away": away} 
+ return score;
 }
+console.log(finalScore(inning, 9));
+
 
 /* ⚾️⚾️⚾️ Task 4: getInningScore() ⚾️⚾️⚾️
 Use the getInningScore() function below to do the following:
   1. Receive a callback function - you will pass in the inning function from task 2 as your argument 
   2. Return an object with a score for home and a score for away that populates from invoking the inning callback function */
 
-function getInningScore(/*Your Code Here */) {
-  /*Your Code Here */
+function getInningScore(inning, y) {
+  let home = inning();
+  let away = inning();
+  var score = {"Inning": y, "Home": home, "Away": away}
+  return score;
 }
-
+console.log(getInningScore(inning, 5))
 
 /* ⚾️⚾️⚾️ Task 5: scoreboard() ⚾️⚾️⚾️
 Use the scoreboard function below to do the following:
@@ -136,14 +149,32 @@ Use the scoreboard function below to do the following:
 ]  
   */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(getInningScore, inning, x) {
+  let home = 0;
+  let away = 0;
+  var score = []
+  let homeTotal = 0;
+  let awayTotal = 0;
+    for (i = 1; i < x+1; i++){
+      score.push("Inning " + i +": Away " + inning() + " - Home " + inning())
+      awayTotal = awayTotal + parseInt(score[i-1].substring(15,16))
+      homeTotal = homeTotal + parseInt(score[i-1].substring(24,25))
+    }
+    if(homeTotal === awayTotal){
+      score.push("This game will require extra innings: Away " + awayTotal + " - Home " + homeTotal)
+      } 
+    else { 
+        score.push("Final Score: Away " + awayTotal + " Home " + homeTotal)
+      }
+    
+ return score
 }
-
+console.log(scoreboard(getInningScore, inning, 9))
 
 
 
 /* 🛑🛑🛑🛑🛑 Please do not modify anything below this line 🛑🛑🛑🛑🛑 */
+
 function foo(){
   //console.log('its working');
   return 'bar';
